@@ -32,4 +32,25 @@ public class ContactHelper extends HelperBase {
         type(By.name("byear"), contactData.getBYear());
     }
 
+    public void deleteSelectedContacts() {
+        click(By.xpath("//input[@value='Delete']"));
+        wd.switchTo().alert().accept();
+    }
+
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitContactModification() {
+        click(By.xpath("(//input[@name='update'])[2]"));
+    }
+
+    public void returnToHomePage(){
+        click(By.linkText("home page"));
+    }
+
 }
