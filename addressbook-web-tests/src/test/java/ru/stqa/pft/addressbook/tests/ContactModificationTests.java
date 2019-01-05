@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -9,28 +10,28 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-    @Test
-    public void testContactModification() throws Exception {
-        app.getNavigationHelper().goToContactsListPage();
-        if(!app.getContactHelper().isThereAContact()){
-            app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData("FName", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001"));
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().contactPage();
+        if(app.contact().list().size()==0){
+            app.goTo().addContactPage();
+            app.contact().create(new ContactData("FName", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001"));
         }
-        app.getNavigationHelper().goToContactsListPage();
+    }
 
-        List<ContactData> before=app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().initContactModification();
+    @Test (enabled=true)
+    public void testContactModification() throws Exception {
+        app.goTo().contactPage();
 
+        List<ContactData> before=app.contact().list();
+        int index=before.size() - 1;
         ContactData contact=new ContactData("FNameNew", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001");
-        app.getContactHelper().fillContactForm(contact);
-        app.getContactHelper().submitContactModification();
-        app.getContactHelper().returnToHomePage();
+        app.contact().modify(index, contact);
 
-        List<ContactData> after=app.getContactHelper().getContactList();
+        List<ContactData> after=app.contact().list();
         Assert.assertEquals(after.size(),before.size());
 
-        before.remove(before.size()-1);
+        before.remove(index);
         before.add(contact);
         Comparator<? super ContactData> byId = (c1, c2)->Integer.compare(c1.getId(),c2.getId());
         before.sort(byId);
