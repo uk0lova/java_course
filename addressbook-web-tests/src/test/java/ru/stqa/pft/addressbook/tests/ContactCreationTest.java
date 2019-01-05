@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ContactCreationTest extends TestBase {
 
+    @Test (enabled=true)
     public void testContactCreation() throws Exception {
         app.goTo().contactPage();
         List<ContactData> before=app.contact().list();
