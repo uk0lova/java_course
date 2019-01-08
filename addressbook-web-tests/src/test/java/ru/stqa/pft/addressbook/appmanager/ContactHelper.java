@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -66,6 +65,7 @@ public class ContactHelper extends HelperBase {
     public void create(ContactData contact) {
         fillContactForm(contact);
         submitContactCreation();
+        contactCache=null;
     }
 
     public void modify(ContactData contact) {
@@ -73,27 +73,34 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact);
         submitContactModification();
         returnToHomePage();
+        contactCache=null;
     }
 
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContacts();
+        contactCache=null;
     }
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
 
+    private Contacts contactCache=null;
+
     public Contacts all() {
-        Contacts contacts= new Contacts();
+        if (contactCache!=null){
+            return new Contacts(contactCache);
+        }
+        contactCache= new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : elements) {
             String lName = element.findElement(By.xpath("td[2]")).getText();
             String fName = element.findElement(By.xpath("td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id).withFirstName(fName).withLastName(lName);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 }
