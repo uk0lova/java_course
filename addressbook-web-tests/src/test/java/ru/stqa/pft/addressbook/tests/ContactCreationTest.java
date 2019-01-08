@@ -15,7 +15,9 @@ public class ContactCreationTest extends TestBase {
         List<ContactData> before=app.contact().list();
 
         app.goTo().addContactPage();
-        ContactData contact=new ContactData("FName", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001");
+        ContactData contact=new ContactData()
+                .withFirstName("FName").withLastName("LName").withNickName("NickName").withCompanyName("Google")
+                .withAddress("USA").withEmail("NickName@google.com").withHomePage("www.google.com").withBDay("1").withBMonth("January").withBYear("2001");
         app.contact().create(contact);
 
         app.goTo().contactPage();

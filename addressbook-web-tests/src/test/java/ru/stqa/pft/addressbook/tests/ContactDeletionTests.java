@@ -14,7 +14,9 @@ public class ContactDeletionTests extends TestBase {
         app.goTo().contactPage();
         if(app.contact().list().size()==0){
             app.goTo().addContactPage();
-            app.contact().create(new ContactData("FName", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001"));
+            app.contact().create(new ContactData()
+                    .withFirstName("FName").withLastName("LName").withNickName("NickName").withCompanyName("Google")
+                    .withAddress("USA").withEmail("NickName@google.com").withHomePage("www.google.com").withBDay("1").withBMonth("January").withBYear("2001"));
         }
     }
 

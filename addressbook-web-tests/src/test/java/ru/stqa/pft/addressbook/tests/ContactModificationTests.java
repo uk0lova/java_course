@@ -15,7 +15,9 @@ public class ContactModificationTests extends TestBase {
         app.goTo().contactPage();
         if(app.contact().list().size()==0){
             app.goTo().addContactPage();
-            app.contact().create(new ContactData("FName", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001"));
+            app.contact().create(new ContactData()
+                    .withFirstName("FName").withLastName("LName").withNickName("NickName").withCompanyName("Google")
+                    .withAddress("USA").withEmail("NickName@google.com").withHomePage("www.google.com").withBDay("1").withBMonth("January").withBYear("2001"));
         }
     }
 
@@ -25,7 +27,11 @@ public class ContactModificationTests extends TestBase {
 
         List<ContactData> before=app.contact().list();
         int index=before.size() - 1;
-        ContactData contact=new ContactData("FNameNew", "LName", "NickName", "Google", "USA", "NickName@google.com", "www.google.com", "1", "January", "2001");
+        ContactData contact=new ContactData()
+                .withFirstName("FNameNew")
+                .withLastName("LName").withNickName("NickName").withCompanyName("Google")
+                .withAddress("USA").withEmail("NickName@google.com").withHomePage("www.google.com")
+                .withBDay("1").withBMonth("January").withBYear("2001");
         app.contact().modify(index, contact);
 
         List<ContactData> after=app.contact().list();
