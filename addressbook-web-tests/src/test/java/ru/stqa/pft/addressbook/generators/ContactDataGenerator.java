@@ -6,6 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.stqa.pft.addressbook.model.ContactData;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,8 +38,8 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<ContactData> contacts = generateContacts(count);
-         if (format.equals("json")) {
-                saveAsJson(contacts, new File(file));
+        if (format.equals("json")) {
+            saveAsJson(contacts, new File(file));
         } else {
             System.out.println("Unrecognized format " + format);
         }
@@ -50,13 +51,13 @@ public class ContactDataGenerator {
 
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData()
-                    .withFirstName(String.format("FName%s",i)).withLastName(String.format("LName%s",i)).withNickName("NickName").withCompanyName("Google")
+                    .withFirstName(String.format("FName%s", i)).withLastName(String.format("LName%s", i)).withNickName("NickName").withCompanyName("Google")
                     .withAddress("Russia, Saint-Petersburg, 18 line V.O. 1-1")
                     .withEmail("NickName@google.com").withEmail2("NickName2@google.com")
                     .withHomePage("www.google.com")
                     .withBDay("1").withBMonth("January").withBYear("2001")
                     .withHomePhone("222-22-22").withMobilePhone("8(911)333").withWorkPhone("444 555 67"));
-                    //.withPhoto(photo));
+            //.withPhoto(photo));
         }
         return contacts;
     }
@@ -64,9 +65,9 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer=new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
 
