@@ -31,6 +31,16 @@ public class GroupData {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
+                '}';
+    }
+
     public GroupData withName(String name) {
         this.name = name;
         return this;
@@ -56,14 +66,6 @@ public class GroupData {
 
     public String getFooter() {
         return footer;
-    }
-
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
     }
 
 }
