@@ -1,0 +1,50 @@
+[
+  {
+    "firstName": "FName0",
+    "lastName": "LName0",
+    "nickName": "NickName",
+    "companyName": "Google",
+    "address": "Russia, Saint-Petersburg, 18 line V.O. 1-1",
+    "email": "NickName@google.com",
+    "email2": "NickName2@google.com",
+    "homePage": "www.google.com",
+    "BDay": "1",
+    "BMonth": "January",
+    "BYear": "2001",
+    "homePhone": "222-22-22",
+    "mobilePhone": "8(911)333",
+    "workPhone": "444 555 67"
+  },
+  {
+    "firstName": "FName1",
+    "lastName": "LName1",
+    "nickName": "NickName",
+    "companyName": "Google",
+    "address": "Russia, Saint-Petersburg, 18 line V.O. 1-1",
+    "email": "NickName@google.com",
+    "email2": "NickName2@google.com",
+    "homePage": "www.google.com",
+    "BDay": "1",
+    "BMonth": "January",
+    "BYear": "2001",
+    "homePhone": "222-22-22",
+    "mobilePhone": "8(911)333",
+    "workPhone": "444 555 67"
+  },
+  {
+    "firstName": "FName2",
+    "lastName": "LName2",
+    "nickName": "NickName",
+    "companyName": "Google",
+    "address": "Russia, Saint-Petersburg, 18 line V.O. 1-1",
+    "email": "NickName@google.com",
+    "email2": "NickName2@google.com",
+    "homePage": "www.google.com",
+    "BDay": "1",
+    "BMonth": "January",
+    "BYear": "2001",
+    "homePhone": "222-22-22",
+    "mobilePhone": "8(911)333",
+    "workPhone": "444 555 67"
+  }
+]
