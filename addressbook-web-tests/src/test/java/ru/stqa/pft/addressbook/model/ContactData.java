@@ -9,71 +9,71 @@ import java.io.File;
 import java.util.Objects;
 
 @Entity
-@Table(name="addressbook")
+@Table(name = "addressbook")
 public class ContactData {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
-    @Column(name="firstname")
-    private String firstName;
+    @Column(name = "firstname")
+    private String firstName = "";
     @Expose
-    @Column(name="lastname")
-    private String lastName;
+    @Column(name = "lastname")
+    private String lastName = "";
     @Expose
-    @Column(name="nickname")
-    private String nickName;
+    @Column(name = "nickname")
+    private String nickName = "";
     @Expose
-    @Column(name="company")
-    private String companyName;
+    @Column(name = "company")
+    private String companyName = "";
     @Expose
-    @Column(name="address")
-    @Type(type="text")
-    private String address;
+    @Column(name = "address")
+    @Type(type = "text")
+    private String address = "";
     @Expose
-    @Column(name="email")
-    @Type(type="text")
-    private String email;
+    @Column(name = "email")
+    @Type(type = "text")
+    private String email = "";
     @Expose
-    @Column(name="email2")
-    @Type(type="text")
-    private String email2;
+    @Column(name = "email2")
+    @Type(type = "text")
+    private String email2 = "";
     @Expose
-    @Column(name="email3")
-    @Type(type="text")
-    private String email3;
+    @Column(name = "email3")
+    @Type(type = "text")
+    private String email3 = "";
     @Expose
-    @Column(name="homepage")
-    @Type(type="text")
-    private String homePage;
+    @Column(name = "homepage")
+    @Type(type = "text")
+    private String homePage = "";
     @Expose
-    @Column(name="bday", columnDefinition = "tinyint")
-    private String BDay;
+    @Column(name = "bday", columnDefinition = "tinyint")
+    private String BDay = "";
     @Expose
-    @Column(name="bmonth")
-    private String BMonth;
+    @Column(name = "bmonth")
+    private String BMonth = "";
     @Expose
-    @Column(name="byear")
-    private String BYear;
+    @Column(name = "byear")
+    private String BYear = "";
     @Expose
-    @Type(type="text")
-    @Column(name="home")
-    private String homePhone;
+    @Type(type = "text")
+    @Column(name = "home")
+    private String homePhone = "";
     @Expose
-    @Type(type="text")
-    @Column(name="mobile")
-    private String mobilePhone;
+    @Type(type = "text")
+    @Column(name = "mobile")
+    private String mobilePhone = "";
     @Expose
-    @Type(type="text")
-    @Column(name="work")
-    private String workPhone;
+    @Type(type = "text")
+    @Column(name = "work")
+    private String workPhone = "";
     @Transient
     private String allPhones;
     @Transient
     private String allEmails;
     @Expose
-    @Type(type="text")
-    @Column(name="photo")
+    @Type(type = "text")
+    @Column(name = "photo")
     private String photo;
     @Transient
     private String group;
@@ -113,6 +113,7 @@ public class ContactData {
         this.email = email;
         return this;
     }
+
     public ContactData withEmail2(String email2) {
         this.email2 = email2;
         return this;
@@ -275,7 +276,6 @@ public class ContactData {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -283,12 +283,24 @@ public class ContactData {
         ContactData that = (ContactData) o;
         return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(nickName, that.nickName) &&
+                Objects.equals(companyName, that.companyName) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(homePage, that.homePage) &&
+                Objects.equals(BDay, that.BDay) &&
+                Objects.equals(BMonth, that.BMonth) &&
+                Objects.equals(BYear, that.BYear) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(mobilePhone, that.mobilePhone) &&
+                Objects.equals(workPhone, that.workPhone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(id, firstName, lastName, nickName, companyName, address, email, email2, email3, homePage, BDay, BMonth, BYear, homePhone, mobilePhone, workPhone);
     }
-
 }
