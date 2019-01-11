@@ -1,47 +1,83 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 import ru.stqa.pft.addressbook.tests.ContactPhoneTests;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name="addressbook")
 public class ContactData {
+    @Id
+    @Column(name="id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name="firstname")
     private String firstName;
     @Expose
+    @Column(name="lastname")
     private String lastName;
     @Expose
+    @Column(name="nickname")
     private String nickName;
     @Expose
+    @Column(name="company")
     private String companyName;
     @Expose
+    @Column(name="address")
+    @Type(type="text")
     private String address;
     @Expose
+    @Column(name="email")
+    @Type(type="text")
     private String email;
     @Expose
+    @Column(name="email2")
+    @Type(type="text")
     private String email2;
     @Expose
+    @Column(name="email3")
+    @Type(type="text")
     private String email3;
     @Expose
+    @Column(name="homepage")
+    @Type(type="text")
     private String homePage;
     @Expose
+    @Column(name="bday", columnDefinition = "tinyint")
     private String BDay;
     @Expose
+    @Column(name="bmonth")
     private String BMonth;
     @Expose
+    @Column(name="byear")
     private String BYear;
     @Expose
+    @Type(type="text")
+    @Column(name="home")
     private String homePhone;
     @Expose
+    @Type(type="text")
+    @Column(name="mobile")
     private String mobilePhone;
     @Expose
+    @Type(type="text")
+    @Column(name="work")
     private String workPhone;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
     @Expose
-    private File photo;
+    @Type(type="text")
+    @Column(name="photo")
+    private String photo;
+    @Transient
+    private String group;
+
 
     public ContactData withId(int id) {
         this.id = id;
@@ -133,12 +169,12 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public String getAllEmails() {
@@ -217,15 +253,28 @@ public class ContactData {
         return mobilePhone;
     }
 
-
     @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homePage='" + homePage + '\'' +
+                ", BDay='" + BDay + '\'' +
+                ", BMonth='" + BMonth + '\'' +
+                ", BYear='" + BYear + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {
