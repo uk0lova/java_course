@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +20,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        if(app.db().groups().size()==0){
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1"));
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
@@ -39,9 +49,10 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
         Contacts before = app.db().contacts();
+        Groups groups = app.db().groups();
 
         app.goTo().addContactPage();
-        app.contacts().create(contact);
+        app.contacts().create(contact.inGroup(groups.iterator().next()));
         app.goTo().contactPage();
 
         assertThat(app.contacts().count(), equalTo(before.size() + 1));
