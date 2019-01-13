@@ -1,7 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.hamcrest.MatcherAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -17,6 +15,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -42,16 +41,16 @@ public class TestBase {
 
     @BeforeMethod
     public void logTestStart(Method m, Object[] p) {
-        logger.info("Start test " + m.getName() + " with parameters "+ Arrays.asList(p));
+        logger.info("Start test " + m.getName() + " with parameters " + Arrays.asList(p));
     }
 
     @AfterMethod(alwaysRun = true)
     public void logTestStop(Method m, Object[] p) {
-        logger.info("Stop test " + m.getName() + " with parameters "+ Arrays.asList(p));
+        logger.info("Stop test " + m.getName() + " with parameters " + Arrays.asList(p));
     }
 
-    public void verifyGtoupListInUI() {
-        if(Boolean.getBoolean("verifyUI")) {
+    public void verifyGroupListInUI() {
+        if (Boolean.getBoolean("verifyUI")) {
             Groups dbGroups = app.db().groups();
             Groups uiGroups = app.group().all();
             assertThat(uiGroups, equalTo(dbGroups.stream()
@@ -59,6 +58,7 @@ public class TestBase {
                     .collect(Collectors.toSet())));
         }
     }
+
     public void verifyContactListInUI() {
         if (Boolean.getBoolean("verifyUI")) {
             Contacts dbContacts = app.db().contacts();
@@ -70,5 +70,28 @@ public class TestBase {
                             .withAllPhones(c.getAllPhones()))
                     .collect(Collectors.toSet())));
         }
+    }
+
+    public GroupData chooseGroupFor(ContactData modifiedContact) {
+        Random rand = new Random();
+        Groups groups = app.db().groups();
+        GroupData choosenGroup = null;
+
+        for (GroupData group : groups) {
+            if (!modifiedContact.getGroups().contains(group)) {
+                choosenGroup = group;
+                break;
+            }
+        }
+
+        if (choosenGroup == null) {
+            String groupName = "testGroupForContact" + rand.nextInt(1000);
+            choosenGroup = new GroupData().withName(groupName);
+            app.goTo().groupPage();
+            app.group().create(choosenGroup);
+            choosenGroup = app.db().groups(groupName).iterator().next();
+        }
+
+        return choosenGroup;
     }
 }
