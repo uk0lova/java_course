@@ -16,6 +16,8 @@ public class ApplicationManager {
     private WebDriver wd;
     private String browser;
     private RegistrationHelper registrationHelper;
+    private FtpHelper ftp;
+    private MailHelper mailHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -29,12 +31,12 @@ public class ApplicationManager {
     }
 
     public void stop() {
-        if(wd!=null){
+        if (wd != null) {
             wd.quit();
         }
     }
 
-    public HttpSession newSession(){
+    public HttpSession newSession() {
         return new HttpSession(this);
     }
 
@@ -43,14 +45,21 @@ public class ApplicationManager {
     }
 
     public RegistrationHelper registration() {
-        if(registrationHelper==null){
-            registrationHelper= new RegistrationHelper(this);
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
         }
         return registrationHelper;
-      }
+    }
+
+    public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
 
     public WebDriver getDriver() {
-        if(wd==null){
+        if (wd == null) {
 
             if (browser.equals(BrowserType.FIREFOX)) {
                 wd = new FirefoxDriver();
@@ -66,4 +75,13 @@ public class ApplicationManager {
         }
         return wd;
     }
+
+    public MailHelper mail() {
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
+
 }
+
