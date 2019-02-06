@@ -40,7 +40,7 @@ public class ChangePasswordTests extends TestBase {
             app.registration().login("administrator", "root");
             app.registration().resetPassword(user);
 
-            List<MailMessage> mailMessages = app.mail().waitForMail(2, 20000);
+            List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
             String confirmationLink = findConfirmationLink(mailMessages, email);
             app.registration().updatePassword(confirmationLink, user, password);
             assertTrue(app.newSession().login(user, password));
