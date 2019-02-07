@@ -58,7 +58,7 @@ public class PointsDistanceTests {
         Point p1 = new Point(1, 2);
         Point p2 = new Point(3, 4);
 
-        Assert.assertEquals((int)Math.round(Point.distance(p1,p2)),3);
+        Assert.assertEquals((int)Math.round(Point.distance(p1,p2)),5); //3
     }
 
 }
