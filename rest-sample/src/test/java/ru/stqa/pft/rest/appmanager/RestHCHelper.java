@@ -14,11 +14,9 @@ import java.io.IOException;
 import java.util.Set;
 
 public class RestHCHelper {
-    public RestHCHelper(ApplicationManager applicationManager) {
-    }
-
-    public Issue getIssueById(int issueId) {
-        return null;
+    protected ApplicationManager app;
+    public RestHCHelper(ApplicationManager app) {
+        this.app = app;
     }
 
     public Set<Issue> getIssues() throws IOException {

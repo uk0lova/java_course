@@ -2,11 +2,7 @@ package ru.stqa.pft.rest.tests;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.rest.model.Issue;
-
-import javax.xml.rpc.ServiceException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
@@ -22,10 +18,4 @@ public class RestTests extends TestBase {
         oldIssues.add(newIssue.withId(issueId));
         assertEquals(newIssues, oldIssues);
     }
-
-  /*  @Test
-    public void test() throws RemoteException, ServiceException, MalformedURLException, NoSuchFieldException {
-        skipIfNotFixed(Integer.valueOf("0000002"));
-        System.out.println("Issue is fixed, test executed");
-    }*/
 }
