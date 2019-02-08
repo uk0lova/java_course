@@ -47,7 +47,6 @@ public class RestAssuredHelper {
         String json = RestAssured.given()
                 .param("subject", newIssue.getSubject())
                 .param("description", newIssue.getDescription())
-                .param("issue%5Bstate%5D", 3)//newIssue.getStateName())
                 .post("http://bugify.stqa.ru/api/issues.json").asString();
         JsonElement parsed = new JsonParser().parse(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();

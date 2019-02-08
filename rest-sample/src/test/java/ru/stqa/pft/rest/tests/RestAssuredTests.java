@@ -10,14 +10,14 @@ import java.util.Set;
 import static org.testng.Assert.assertEquals;
 
 public class RestAssuredTests extends TestBase {
-    private int SkippedIssueId=632;
+    private int SkippedIssueId=1;
 
     @BeforeClass
     public void init() {
         RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
     }
 
-    /*@BeforeMethod
+   @BeforeMethod
     public void ensurePreconditions(){
         Set<Issue> oldIssues = app.restAssured().getIssues();
         Issue newIssue = new Issue().withSubject("Test issue OU").withDescription("New test description OU").withStateName("Closed");
@@ -26,7 +26,7 @@ public class RestAssuredTests extends TestBase {
         Set<Issue> newIssues = app.restAssured().getIssues();
         oldIssues.add(newIssue.withId(SkippedIssueId));
         assertEquals(newIssues, oldIssues);
-    }*/
+    }
 
     @Test(enabled = false)
     public void testCreateIssue() {
