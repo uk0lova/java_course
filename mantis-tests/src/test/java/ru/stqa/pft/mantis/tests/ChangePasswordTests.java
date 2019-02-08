@@ -5,10 +5,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
-import ru.stqa.pft.mantis.appmanager.DBHelper;
 import javax.mail.MessagingException;
 import java.io.IOException;
-import java.sql.*;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -22,20 +20,15 @@ public class ChangePasswordTests extends TestBase {
 
     @Test
     public void testChangePassword() throws IOException, MessagingException {
-        long now = System.currentTimeMillis();
         String password = "new_password";
-        Connection conn = null;
+        String[] userData = app.db().getUserData();
 
-        try {
-            DBHelper DBHelper = new DBHelper().invoke();
-            conn = DBHelper.getConn();
-            Statement st = DBHelper.getSt();
-            ResultSet rs = DBHelper.getRs();
-            rs.first();
-            rs.next();
-            String user=rs.getString("username");
-            String email =rs.getString("email");
-            System.out.println(rs.getString("username"));
+        if (userData == null) {
+            System.out.println("No user found for changing password");
+        } else {
+
+            String user = userData[0];
+            String email = userData[1];
 
             app.registration().login("administrator", "root");
             app.registration().resetPassword(user);
@@ -44,17 +37,6 @@ public class ChangePasswordTests extends TestBase {
             String confirmationLink = findConfirmationLink(mailMessages, email);
             app.registration().updatePassword(confirmationLink, user, password);
             assertTrue(app.newSession().login(user, password));
-
-            rs.close();
-            st.close();
-            conn.close();
-
-         } catch (
-    SQLException ex) {
-        // handle any errors
-        System.out.println("SQLException: " + ex.getMessage());
-        System.out.println("SQLState: " + ex.getSQLState());
-        System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
 
