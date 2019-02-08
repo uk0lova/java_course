@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
-
+import ru.stqa.pft.mantis.appmanager.DBHelper;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.*;
@@ -27,10 +27,10 @@ public class ChangePasswordTests extends TestBase {
         Connection conn = null;
 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=root&password=&serverTimezone=UTC");
-            Statement st=conn.createStatement();
-            ResultSet rs = st.executeQuery
-                    ("select username, email from mantis_user_table");
+            DBHelper DBHelper = new DBHelper().invoke();
+            conn = DBHelper.getConn();
+            Statement st = DBHelper.getSt();
+            ResultSet rs = DBHelper.getRs();
             rs.first();
             rs.next();
             String user=rs.getString("username");
