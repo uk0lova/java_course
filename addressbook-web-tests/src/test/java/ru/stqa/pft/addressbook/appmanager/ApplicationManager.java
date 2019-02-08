@@ -33,6 +33,7 @@ public class ApplicationManager {
 
     public void init() throws IOException {
 
+        System.setProperty("webdriver.chrome.driver", "./");
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
 
